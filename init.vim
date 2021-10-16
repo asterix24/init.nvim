@@ -21,13 +21,14 @@ Plug 'Jorengarenar/vim-MvVis'                           " move visual selection
 "}}}
 
 " ================= Functionalities ================= "{{{
-
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}         " LSP and more
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }     " fzf itself
 Plug 'junegunn/fzf.vim'                                 " fuzzy search integration
 Plug 'honza/vim-snippets'                               " actual snippets
 Plug 'Yggdroot/indentLine'                              " show indentation lines
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}  " better python
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] } " better python
 Plug 'tpope/vim-commentary'                             " better commenting
 Plug 'mhinz/vim-startify'                               " cool start up screen
 Plug 'tpope/vim-fugitive'                               " git support
@@ -37,8 +38,8 @@ Plug 'tpope/vim-eunuch'                                 " run common Unix comman
 Plug 'machakann/vim-sandwich'                           " make sandwiches
 Plug 'christoomey/vim-tmux-navigator'                   " seamless vim and tmux navigation
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'godlygeek/tabular'
 call plug#end()
-
 "}}}
 
 " ==================== general config ======================== "{{{
@@ -112,6 +113,10 @@ hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 "}}}
 
 " ======================== Plugin Configurations ======================== "{{{
+
+lua << EOF
+require'nvim-tree'.setup()
+EOF
 
 "" built in plugins
 let loaded_netrw = 0                                    " diable netew
@@ -321,7 +326,8 @@ endfunction
 " ======================== Custom Mappings ====================== "{{{
 
 "" the essentials
-let mapleader=","
+"let mapleader=","
+let mapleader = "\<Space>"
 nnoremap ; :
 nmap \ <leader>q
 map <F6> :Startify <CR>
@@ -428,6 +434,28 @@ nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 
+" Asterix Shortcut
+nmap <Leader>d  :vsplit<CR>
+nmap <Leader>D  :split<CR>
+
+map <silent> <A-o> <C-w>o
+map <silent> <A-n> <C-w><C-w>
+map <silent> <A-p> <C-w><S-w>
+
+map <silent> <A-s> :split<CR>
+map <silent> <A-v> :vsplit<CR>
+
+nnoremap <leader>t <cmd><CR>
+map <C-l>    :NvimTreeToggle <Enter>
+
+" w!! if you forget to sudo before saving
+cmap w!! w !sudo tee % >/dev/null
+
+map <S-Left>  :bprevious <Enter>
+map <S-Right> :bnext <Enter>
+
+" Hex mode
+noremap <S-H> :call HexMe()<CR>
 "}}}
 
 
