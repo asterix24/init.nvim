@@ -106,10 +106,12 @@ let g:gruvbox_italicize_strings=1
 hi Pmenu guibg=#3c3836 guifg=#b8bb26                    " popup menu colors
 hi Comment gui=italic cterm=italic                      " italic comments
 hi Search guibg=#458588 guifg=#fbf1c7 gui=NONE          " search string highlight color
+hi Visual guibg=#ebdbb2 guifg=#282828 gui=NONE          " search string highlight color
 hi NonText guifg=bg                                     " mask ~ on empty lines
 hi clear CursorLineNr                                   " use the theme color for relative number
 hi CursorLineNr gui=bold                                " make relative number bold
 hi SpellBad guifg=NONE gui=bold,undercurl               " misspelled words
+hi LineNr term=bold cterm=NONE ctermfg=108 ctermbg=NONE
 
 "" colors for git (especially the gutter)
 hi DiffAdd  guibg=#282828 guifg=#43a047
