@@ -74,5 +74,6 @@
   // other language specific settings
   "html.autoClosingTags": true,
   "prettier.proseWrap": "always",
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/12.0.1/clangd_12.0.1/bin/clangd"
 }
