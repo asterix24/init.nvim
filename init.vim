@@ -18,6 +18,7 @@ Plug 'luochen1990/rainbow'                              " rainbow parenthesis
 Plug 'hzchirs/vim-material'                             " material color themes
 Plug 'gregsexton/MatchTag'                              " highlight matching html tags
 Plug 'Jorengarenar/vim-MvVis'                           " move visual selection
+Plug 'morhetz/gruvbox'
 "}}}
 
 " ================= Functionalities ================= "{{{
@@ -92,22 +93,30 @@ set shortmess+=c
 set signcolumn=yes
 
 " Themeing
-let g:material_style = 'oceanic'
-colorscheme vim-material
-hi Pmenu guibg='#00010a' guifg=white                    " popup menu colors
+colorscheme gruvbox
+
+" Colors and layout settings.
+let g:gruvbox_bold=1
+let g:gruvbox_underline=1
+let g:gruvbox_contrast_dark="medium"
+let g:gruvbox_italicize_comments=1
+let g:gruvbox_italic=1
+let g:gruvbox_italicize_strings=1
+
+hi Pmenu guibg=#3c3836 guifg=#b8bb26                    " popup menu colors
 hi Comment gui=italic cterm=italic                      " italic comments
-hi Search guibg=#b16286 guifg=#ebdbb2 gui=NONE          " search string highlight color
+hi Search guibg=#458588 guifg=#fbf1c7 gui=NONE          " search string highlight color
 hi NonText guifg=bg                                     " mask ~ on empty lines
 hi clear CursorLineNr                                   " use the theme color for relative number
 hi CursorLineNr gui=bold                                " make relative number bold
 hi SpellBad guifg=NONE gui=bold,undercurl               " misspelled words
 
-" colors for git (especially the gutter)
-hi DiffAdd  guibg=#0f111a guifg=#43a047
-hi DiffChange guibg=#0f111a guifg=#fdd835
-hi DiffRemoved guibg=#0f111a guifg=#e53935
-
-" coc multi cursor highlight color
+"" colors for git (especially the gutter)
+hi DiffAdd  guibg=#282828 guifg=#43a047
+hi DiffChange guibg=#282828 guifg=#fdd835
+hi DiffRemoved guibg=#282828 guifg=#e53935
+"
+"" coc multi cursor highlight color
 hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 
 "}}}
