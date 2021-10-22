@@ -40,6 +40,7 @@ Plug 'machakann/vim-sandwich'                           " make sandwiches
 Plug 'christoomey/vim-tmux-navigator'                   " seamless vim and tmux navigation
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'godlygeek/tabular'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 call plug#end()
 "}}}
 
@@ -358,7 +359,7 @@ map <S-Enter> O<ESC>
 " use a different register for delete and paste
 nnoremap d "_d
 vnoremap d "_d
-vnoremap p "_dP
+"vnoremap p "_dP
 nnoremap x "_x
 
 " emulate windows copy, cut behavior
