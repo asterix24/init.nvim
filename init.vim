@@ -37,8 +37,8 @@ Plug 'tpope/vim-fugitive'                               " git support
 Plug 'wellle/tmux-complete.vim'                         " complete words from a tmux panes
 "Plug 'tpope/vim-eunuch'                                 " run common Unix commands inside Vim
 Plug 'machakann/vim-sandwich'                           " make sandwiches
-Plug 'christoomey/vim-tmux-navigator'                   " seamless vim and tmux navigation
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+"Plug 'christoomey/vim-tmux-navigator'                   " seamless vim and tmux navigation
+"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'godlygeek/tabular'
 "Plug 'jackguo380/vim-lsp-cxx-highlight'
 call plug#end()
@@ -389,7 +389,7 @@ noremap <silent><esc> <esc>:noh<CR><esc>
 nnoremap <F2> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " markdown preview
-au FileType markdown nmap <leader>m :MarkdownPreview<CR>
+"au FileType markdown nmap <leader>m :MarkdownPreview<CR>
 
 "" FZF
 nnoremap <silent> <leader>f :Files<CR>
@@ -397,8 +397,8 @@ nmap <leader>b :Buffers<CR>
 nmap <leader>c :Commands<CR>
 nmap <leader>t :BTags<CR>
 nmap <leader>/ :Rg<CR>
-nmap <leader>gc :Commits<CR>
-nmap <leader>gs :GFiles?<CR>
+"nmap <leader>gc :Commits<CR>
+"nmap <leader>gs :GFiles?<CR>
 nmap <leader>sh :History/<CR>
 
 " show mapping on all modes with F1
@@ -442,8 +442,8 @@ nmap <leader>a <Plug>(coc-codeaction-line)
 xmap <leader>a <Plug>(coc-codeaction-selected)
 
 " fugitive mappings
-nmap <leader>gd :Gdiffsplit<CR>
-nmap <leader>gb :Git blame<CR>
+"nmap <leader>gd :Gdiffsplit<CR>
+"nmap <leader>gb :Git blame<CR>
 
 " tmux navigator
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
@@ -454,6 +454,8 @@ nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 " Asterix Shortcut
 nmap <Leader>d  :vsplit<CR>
 nmap <Leader>D  :split<CR>
+" Fuck!, please leave default yank behavior!
+nnoremap Y Y
 
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
