@@ -33,14 +33,14 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-p
 Plug 'tpope/vim-commentary'                             " better commenting
 Plug 'mhinz/vim-startify'                               " cool start up screen
 Plug 'tpope/vim-fugitive'                               " git support
-Plug 'psliwka/vim-smoothie'                             " some very smooth ass scrolling
+"Plug 'psliwka/vim-smoothie'                             " some very smooth ass scrolling
 Plug 'wellle/tmux-complete.vim'                         " complete words from a tmux panes
-Plug 'tpope/vim-eunuch'                                 " run common Unix commands inside Vim
+"Plug 'tpope/vim-eunuch'                                 " run common Unix commands inside Vim
 Plug 'machakann/vim-sandwich'                           " make sandwiches
 Plug 'christoomey/vim-tmux-navigator'                   " seamless vim and tmux navigation
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'godlygeek/tabular'
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+"Plug 'jackguo380/vim-lsp-cxx-highlight'
 call plug#end()
 "}}}
 
@@ -75,7 +75,7 @@ set inccommand=nosplit                                  " visual feedback while 
 set showtabline=0                                       " always show tabline
 set grepprg=rg\ --vimgrep                               " use rg as default grepper
 
-" performance tweaks
+"" performance tweaks
 set nocursorline
 set nocursorcolumn
 set scrolljump=5
@@ -207,13 +207,18 @@ let g:startify_commands = [
 " custom banner
 let g:startify_custom_header = [
  \ '',
- \ '                                                    ▟▙            ',
- \ '                                                    ▝▘            ',
- \ '            ██▃▅▇█▆▖  ▗▟████▙▖   ▄████▄   ██▄  ▄██  ██  ▗▟█▆▄▄▆█▙▖',
- \ '            ██▛▔ ▝██  ██▄▄▄▄██  ██▛▔▔▜██  ▝██  ██▘  ██  ██▛▜██▛▜██',
- \ '            ██    ██  ██▀▀▀▀▀▘  ██▖  ▗██   ▜█▙▟█▛   ██  ██  ██  ██',
- \ '            ██    ██  ▜█▙▄▄▄▟▊  ▀██▙▟██▀   ▝████▘   ██  ██  ██  ██',
- \ '            ▀▀    ▀▀   ▝▀▀▀▀▀     ▀▀▀▀       ▀▀     ▀▀  ▀▀  ▀▀  ▀▀',
+ \ '',
+ \ '                                                            ',
+ \ '  ▄▄▄        ██████ ▄▄▄█████▓▓█████  ██▀███   ██▓▒██   ██▒  ',
+ \ ' ▒████▄    ▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██ ▒ ██▒▓██▒▒▒ █ █ ▒░  ',
+ \ ' ▒██  ▀█▄  ░ ▓██▄   ▒ ▓██░ ▒░▒███   ▓██ ░▄█ ▒▒██▒░░  █   ░  ',
+ \ ' ░██▄▄▄▄██   ▒   ██▒░ ▓██▓ ░ ▒▓█  ▄ ▒██▀▀█▄  ░██░ ░ █ █ ▒   ',
+ \ '  ▓█   ▓██▒▒██████▒▒  ▒██▒ ░ ░▒████▒░██▓ ▒██▒░██░▒██▒ ▒██▒  ',
+ \ '  ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░  ▒ ░░   ░░ ▒░ ░░ ▒▓ ░▒▓░░▓  ▒▒ ░ ░▓ ░  ',
+ \ '   ▒   ▒▒ ░░ ░▒  ░ ░    ░     ░ ░  ░  ░▒ ░ ▒░ ▒ ░░░   ░▒ ░  ',
+ \ '   ░   ▒   ░  ░  ░    ░         ░     ░░   ░  ▒ ░ ░    ░    ',
+ \ '       ░  ░      ░              ░  ░   ░      ░   ░    ░    ',
+ \ '                                                            ',
  \ '',
  \ '',
  \ '',
@@ -250,8 +255,8 @@ au BufWritePre * :%s/\s\+$//e                           " remove trailing whites
 au CursorHold * silent call CocActionAsync('highlight') " highlight match on cursor hold
 
 " enable spell only if file type is normal text
-let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
-autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
+"let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
+"autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
 
 
 " coc completion popup
@@ -349,7 +354,7 @@ nmap <leader>w :w<CR>
 map <leader>s :Format<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
-noremap <leader>e :PlugInstall<CR>
+"noremap <leader>e :PlugInstall<CR>
 noremap <C-q> :q<CR>
 
 " new line in normal mode and back
@@ -357,15 +362,15 @@ map <Enter> o<ESC>
 map <S-Enter> O<ESC>
 
 " use a different register for delete and paste
-nnoremap d "_d
-vnoremap d "_d
+"nnoremap d "_d
+"vnoremap d "_d
 "vnoremap p "_dP
-nnoremap x "_x
+"nnoremap x "_x
 
 " emulate windows copy, cut behavior
-vnoremap <LeftRelease> "+y<LeftRelease>
-vnoremap <C-c> "+y<CR>
-vnoremap <C-x> "+d<CR>
+"vnoremap <LeftRelease> "+y<LeftRelease>
+"vnoremap <C-c> "+y<CR>
+"vnoremap <C-x> "+d<CR>
 
 " switch between splits using ctrl + {h,j,k,l}
 inoremap <C-h> <C-\><C-N><C-w>h
@@ -468,6 +473,7 @@ map <S-Right> :bnext <Enter>
 
 " Hex mode
 noremap <S-H> :call HexMe()<CR>
+map <A-c> :call CocAction('format')
 "}}}
 
 
