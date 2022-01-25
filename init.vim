@@ -34,10 +34,10 @@ Plug 'mhinz/vim-startify'                               " cool start up screen
 Plug 'tpope/vim-fugitive'                               " git support
 "Plug 'psliwka/vim-smoothie'                             " some very smooth ass scrolling
 Plug 'wellle/tmux-complete.vim'                         " complete words from a tmux panes
-Plug 'tpope/vim-eunuch'                                 " run common Unix commands inside Vim
 Plug 'machakann/vim-sandwich'                           " make sandwiches
 Plug 'christoomey/vim-tmux-navigator'                   " seamless vim and tmux navigation
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'voldikss/vim-floaterm'                            " runs terminal in floating window
 Plug 'godlygeek/tabular'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
@@ -247,6 +247,18 @@ let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build
 
 "}}}
 
+
+" ======================== floatterm ============================= "{{{
+
+let g:floaterm_autoclose = 2
+let g:floaterm_width = 0.8
+let g:floaterm_height = 0.9
+let g:floaterm_wintype = 'float'
+
+"autocmd User FloatermOpen
+"}}}
+
+
 " ======================== Commands ============================= "{{{
 
 au BufEnter * set fo-=c fo-=r fo-=o                     " stop annoying auto commenting on new lines
@@ -263,6 +275,7 @@ au CursorHold * silent call CocActionAsync('highlight') " highlight match on cur
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " startify if no passed argument or all buffers are closed
+
 augroup noargs
     " startify when there is no open buffer left
     autocmd BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
@@ -459,8 +472,14 @@ nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 " Asterix Shortcut
 nmap <Leader>d  :vsplit<CR>
 nmap <Leader>D  :split<CR>
+
+" Run gitui in float window
+nmap <Leader>g :FloatermNew --name=gitui gitui<CR>
+nnoremap <silent> <S-l> :FloatermNew<cr>
+
 " Fuck!, please leave default yank behavior!
-nnoremap Y Y
+"nnoremap Y Y
+
 
 map <silent> <A-o> <C-w>o
 map <silent> <A-n> <C-w><C-w>
