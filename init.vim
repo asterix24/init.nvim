@@ -22,8 +22,7 @@ Plug 'morhetz/gruvbox'
 "}}}
 
 " ================= Functionalities ================= "{{{
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}         " LSP and more
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }     " fzf itself
 Plug 'junegunn/fzf.vim'                                 " fuzzy search integration
@@ -37,10 +36,11 @@ Plug 'tpope/vim-fugitive'                               " git support
 Plug 'wellle/tmux-complete.vim'                         " complete words from a tmux panes
 Plug 'tpope/vim-eunuch'                                 " run common Unix commands inside Vim
 Plug 'machakann/vim-sandwich'                           " make sandwiches
-"Plug 'christoomey/vim-tmux-navigator'                   " seamless vim and tmux navigation
-"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'christoomey/vim-tmux-navigator'                   " seamless vim and tmux navigation
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'godlygeek/tabular'
-"Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 call plug#end()
 "}}}
 
@@ -289,8 +289,13 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 
-" python renaming
-autocmd FileType python nnoremap <leader>rn :Semshi rename <CR>
+" python renaming and folding
+augroup python
+    autocmd FileType python nnoremap <leader>rn :Semshi rename <CR>
+    autocmd FileType python set foldmethod=syntax
+    autocmd FileType python syn sync fromstart
+    autocmd FileType python syn region foldImports start='"""' end='"""' fold keepend
+augroup end
 
 " format with available file format formatter
 command! -nargs=0 Format :call CocAction('format')
@@ -389,7 +394,7 @@ noremap <silent><esc> <esc>:noh<CR><esc>
 nnoremap <F2> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " markdown preview
-"au FileType markdown nmap <leader>m :MarkdownPreview<CR>
+au FileType markdown nmap <leader>m :MarkdownPreview<CR>
 
 "" FZF
 nnoremap <silent> <leader>f :Files<CR>
