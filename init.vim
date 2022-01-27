@@ -30,17 +30,16 @@ Plug 'honza/vim-snippets'                               " actual snippets
 Plug 'Yggdroot/indentLine'                              " show indentation lines
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}  " better python
 Plug 'tpope/vim-commentary'                             " better commenting
-Plug 'mhinz/vim-startify'                               " cool start up screen
 Plug 'tpope/vim-fugitive'                               " git support
-"Plug 'psliwka/vim-smoothie'                             " some very smooth ass scrolling
 Plug 'wellle/tmux-complete.vim'                         " complete words from a tmux panes
 Plug 'machakann/vim-sandwich'                           " make sandwiches
 Plug 'christoomey/vim-tmux-navigator'                   " seamless vim and tmux navigation
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'voldikss/vim-floaterm'                            " runs terminal in floating window
 Plug 'godlygeek/tabular'
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-web-devicons'                     " file icons for tree
+Plug 'kyazdani42/nvim-tree.lua'                         " file tree
+Plug 'jlanzarotta/bufexplorer'                          "
 call plug#end()
 "}}}
 
@@ -174,55 +173,6 @@ let g:coc_global_extensions = [
 let g:indentLine_char_list = ['▏', '¦', '┆', '┊']
 let g:indentLine_setColors = 0
 let g:indentLine_setConceal = 0                         " actually fix the annoying markdown links conversion
-let g:indentLine_fileTypeExclude = ['startify']
-
-"" startify
-let g:startify_padding_left = 10
-let g:startify_session_persistence = 1
-let g:startify_enable_special = 0
-let g:startify_change_to_vcs_root = 1
-let g:startify_lists = [
-    \ { 'type': 'dir'       },
-    \ { 'type': 'files'     },
-    \ { 'type': 'sessions'  },
-    \ { 'type': 'bookmarks' },
-    \ { 'type': 'commands' },
-    \ ]
-
-" bookmark examples
-let  g:startify_bookmarks =  [
-    \ {'v': '~/.config/nvim'},
-    \ {'d': '~/.dotfiles' }
-    \ ]
-
-" custom commands
-let g:startify_commands = [
-    \ {'ch':  ['Health Check', ':checkhealth']},
-    \ {'ps': ['Plugins status', ':PlugStatus']},
-    \ {'pu': ['Update vim plugins',':PlugUpdate | PlugUpgrade']},
-    \ {'uc': ['Update coc Plugins', ':CocUpdate']},
-    \ {'h':  ['Help', ':help']},
-    \ ]
-
-" custom banner
-let g:startify_custom_header = [
- \ '',
- \ '',
- \ '                                                            ',
- \ '  ▄▄▄        ██████ ▄▄▄█████▓▓█████  ██▀███   ██▓▒██   ██▒  ',
- \ ' ▒████▄    ▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██ ▒ ██▒▓██▒▒▒ █ █ ▒░  ',
- \ ' ▒██  ▀█▄  ░ ▓██▄   ▒ ▓██░ ▒░▒███   ▓██ ░▄█ ▒▒██▒░░  █   ░  ',
- \ ' ░██▄▄▄▄██   ▒   ██▒░ ▓██▓ ░ ▒▓█  ▄ ▒██▀▀█▄  ░██░ ░ █ █ ▒   ',
- \ '  ▓█   ▓██▒▒██████▒▒  ▒██▒ ░ ░▒████▒░██▓ ▒██▒░██░▒██▒ ▒██▒  ',
- \ '  ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░  ▒ ░░   ░░ ▒░ ░░ ▒▓ ░▒▓░░▓  ▒▒ ░ ░▓ ░  ',
- \ '   ▒   ▒▒ ░░ ░▒  ░ ░    ░     ░ ░  ░  ░▒ ░ ▒░ ▒ ░░░   ░▒ ░  ',
- \ '   ░   ▒   ░  ░  ░    ░         ░     ░░   ░  ▒ ░ ░    ░    ',
- \ '       ░  ░      ░              ░  ░   ░      ░   ░    ░    ',
- \ '                                                            ',
- \ '',
- \ '',
- \ '',
- \]
 
 " rainbow brackets
 let g:rainbow_active = 1
@@ -246,7 +196,6 @@ let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
 let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**' --glob '!build/**' --glob '!.dart_tool/**' --glob '!.idea' --glob '!node_modules'"
 
 "}}}
-
 
 " ======================== floatterm ============================= "{{{
 
@@ -274,23 +223,11 @@ au CursorHold * silent call CocActionAsync('highlight') " highlight match on cur
 " coc completion popup
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" startify if no passed argument or all buffers are closed
-
-augroup noargs
-    " startify when there is no open buffer left
-    autocmd BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
-
-    " open startify on start if no argument was passed
-    autocmd VimEnter * if argc() == 0 | Startify | endif
-augroup END
 
 " fzf if passed argument is a folder
 augroup folderarg
     " change working directory to passed directory
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-
-    " start startify (fallback if fzf is closed)
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | Startify  | endif
 
     " start fzf on passed directory
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
@@ -336,11 +273,6 @@ function! RipgrepFzf(query, fullscreen)
     call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
-" startify file icons
-function! StartifyEntryFormat()
-    return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
-endfunction
-
 " check if last inserted char is a backspace (used by coc pmenu)
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -361,44 +293,14 @@ endfunction
 " ======================== Custom Mappings ====================== "{{{
 
 "" the essentials
-"let mapleader=","
 let mapleader = "\<Space>"
 nnoremap ; :
-nmap \ <leader>q
-map <F6> :Startify <CR>
-nmap <leader>r :so ~/.config/nvim/init.vim<CR>
-nmap <leader>q :bd<CR>
-nmap <leader>w :w<CR>
-map <leader>s :Format<CR>
+"nmap <leader>r :so ~/.config/nvim/init.vim<CR>
+
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
-"noremap <leader>e :PlugInstall<CR>
-noremap <C-q> :q<CR>
-
-" new line in normal mode and back
-map <Enter> o<ESC>
-map <S-Enter> O<ESC>
-
-" use a different register for delete and paste
-"nnoremap d "_d
-"vnoremap d "_d
-"vnoremap p "_dP
-"nnoremap x "_x
-
-" emulate windows copy, cut behavior
-"vnoremap <LeftRelease> "+y<LeftRelease>
-"vnoremap <C-c> "+y<CR>
-"vnoremap <C-x> "+d<CR>
-
-" switch between splits using ctrl + {h,j,k,l}
-inoremap <C-h> <C-\><C-N><C-w>h
-inoremap <C-j> <C-\><C-N><C-w>j
-inoremap <C-k> <C-\><C-N><C-w>k
-inoremap <C-l> <C-\><C-N><C-w>l
-nnoremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+map <S-Left>  :bprevious <Enter>
+map <S-Right> :bnext <Enter>
 
 " disable hl with 2 esc
 noremap <silent><esc> <esc>:noh<CR><esc>
@@ -415,8 +317,7 @@ nmap <leader>b :Buffers<CR>
 nmap <leader>c :Commands<CR>
 nmap <leader>t :BTags<CR>
 nmap <leader>/ :Rg<CR>
-"nmap <leader>gc :Commits<CR>
-"nmap <leader>gs :GFiles?<CR>
+
 nmap <leader>sh :History/<CR>
 
 " show mapping on all modes with F1
@@ -458,16 +359,7 @@ nmap <leader>jr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 nmap <leader>a <Plug>(coc-codeaction-line)
 xmap <leader>a <Plug>(coc-codeaction-selected)
-
-" fugitive mappings
-"nmap <leader>gd :Gdiffsplit<CR>
-"nmap <leader>gb :Git blame<CR>
-
-" tmux navigator
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+map <A-c> :call CocAction('format')
 
 " Asterix Shortcut
 nmap <Leader>d  :vsplit<CR>
@@ -475,35 +367,21 @@ nmap <Leader>D  :split<CR>
 
 " Run gitui in float window
 nmap <Leader>g :FloatermNew --name=gitui gitui<CR>
-nnoremap <silent> <S-l> :FloatermNew<cr>
+nmap <Leader>l :FloatermToggle<cr>
+nnoremap <silent> <S-l> :FloatermNew --wintype=split --height=0.35<cr>
 
-" Fuck!, please leave default yank behavior!
-"nnoremap Y Y
-
-
-map <silent> <A-o> <C-w>o
-map <silent> <A-n> <C-w><C-w>
-map <silent> <A-p> <C-w><S-w>
-
-map <silent> <A-s> :split<CR>
-map <silent> <A-v> :vsplit<CR>
-
-nnoremap <leader>t <cmd><CR>
-map <C-l>    :NvimTreeToggle <Enter>
+map <C-l> :NvimTreeToggle<Enter>
+map <C-k> :BufExplorer<Enter>
 
 " w!! if you forget to sudo before saving
 cmap w!! w !sudo tee % >/dev/null
 
-map <S-Left>  :bprevious <Enter>
-map <S-Right> :bnext <Enter>
-
 " Hex mode
-noremap <S-H> :call HexMe()<CR>
-map <A-c> :call CocAction('format')
+noremap <S-h> :call HexMe()<CR>
 "}}}
-
 
 " ======================== Additional sourcing ====================== "{{{
 source ~/.config/nvim/statusline.vim
 
 "}}}
+
