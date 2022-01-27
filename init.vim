@@ -219,10 +219,8 @@ au CursorHold * silent call CocActionAsync('highlight') " highlight match on cur
 "let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
 "autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
 
-
 " coc completion popup
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
 
 " fzf if passed argument is a folder
 augroup folderarg
@@ -359,7 +357,6 @@ nmap <leader>jr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 nmap <leader>a <Plug>(coc-codeaction-line)
 xmap <leader>a <Plug>(coc-codeaction-selected)
-map <A-c> :call CocAction('format')
 
 " Asterix Shortcut
 nmap <Leader>d  :vsplit<CR>
