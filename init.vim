@@ -39,6 +39,7 @@ Plug 'godlygeek/tabular'
 Plug 'kyazdani42/nvim-web-devicons'                     " file icons for tree
 Plug 'kyazdani42/nvim-tree.lua'                         " file tree
 Plug 'jlanzarotta/bufexplorer'                          "
+Plug 'rhysd/vim-clang-format'
 call plug#end()
 "}}}
 
@@ -343,6 +344,7 @@ nmap <leader>jd <Plug>(coc-definition)
 nmap <leader>jy <Plug>(coc-type-definition)
 nmap <leader>ji <Plug>(coc-implementation)
 nmap <leader>jr <Plug>(coc-references)
+nmap <leader>jt :CocPrev
 
 " other coc actions
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -350,8 +352,10 @@ nmap <leader>a <Plug>(coc-codeaction-line)
 xmap <leader>a <Plug>(coc-codeaction-selected)
 
 " Asterix Shortcut
-nmap <Leader>d  :vsplit<CR>
-nmap <Leader>D  :split<CR>
+nmap <Leader>v  :vsplit<CR>
+nmap <Leader>s  :split<CR>
+nmap <Leader>d  :bd<CR>
+nmap <Leader>c  :ClangFormat<CR>
 
 " Run gitui in float window
 nmap <Leader>g :FloatermNew --name=gitui gitui<CR>
