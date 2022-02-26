@@ -19,6 +19,8 @@ Plug 'hzchirs/vim-material'                             " material color themes
 Plug 'gregsexton/MatchTag'                              " highlight matching html tags
 Plug 'Jorengarenar/vim-MvVis'                           " move visual selection
 Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 "}}}
 
 " ================= Functionalities ================= "{{{
@@ -103,6 +105,17 @@ let g:gruvbox_contrast_dark="medium"
 let g:gruvbox_italicize_comments=1
 let g:gruvbox_italic=1
 let g:gruvbox_italicize_strings=1
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme='gruvbox'
+
+let g:airline#extensions#tabline#switch_buffers_and_tabs = 0
+let g:airline#extensions#tabline#enabled = 1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.dirty = ' 朗'
+
 
 hi Pmenu guibg=#3c3836 guifg=#b8bb26                    " popup menu colors
 hi Comment gui=italic cterm=italic                      " italic comments
@@ -382,7 +395,7 @@ noremap <S-h> :call HexMe()<CR>
 "}}}
 
 " ======================== Additional sourcing ====================== "{{{
-source ~/.config/nvim/statusline.vim
+"source ~/.config/nvim/statusline.vim
 
 "}}}
 
