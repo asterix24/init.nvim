@@ -1,13 +1,11 @@
 {
   // normal settings
-  "coc.preferences.colorSupport": true,
   "coc.preferences.snippetStatusText": "Ⓢ ",
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "html",
     "css",
     "json",
-    "markdown",
     "typescript",
     "python",
     "dart"
@@ -77,7 +75,9 @@
   "prettier.proseWrap": "always",
   "python.formatting.provider": "black",
   "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd",
-  "clangd.semanticHighlighting": true,
   "clangd.compilationDatabasePath": "./",
-  "coc.preferences.semanticTokensHighlights": false
+
+  "markdownlint.config": {
+    "line_length": false
+  }
 }

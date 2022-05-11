@@ -250,7 +250,6 @@ autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
-
 " python renaming and folding
 augroup python
     autocmd FileType python nnoremap <leader>rn :Semshi rename <CR>
@@ -320,9 +319,6 @@ noremap <silent><esc> <esc>:noh<CR><esc>
 " trim white spaces
 nnoremap <F2> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-" markdown preview
-au FileType markdown nmap <leader>m :MarkdownPreview<CR>
-
 "" FZF
 nnoremap <silent> <leader>f :Files<CR>
 nmap <leader>b :Buffers<CR>
@@ -384,8 +380,8 @@ nmap <Leader>g :FloatermNew --name=gitui gitui<CR>
 nmap <Leader>l :FloatermToggle<cr>
 nnoremap <silent> <S-l> :FloatermNew --wintype=split --height=0.35<cr>
 
-map <C-l> :NvimTreeToggle<Enter>
-map <C-k> :BufExplorer<Enter>
+map <C-k> :NvimTreeToggle<Enter>
+map <C-l> :BufExplorer<Enter>
 
 " w!! if you forget to sudo before saving
 cmap w!! w !sudo tee % >/dev/null
