@@ -39,8 +39,8 @@ Plug 'christoomey/vim-tmux-navigator'                   " seamless vim and tmux 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'voldikss/vim-floaterm'                            " runs terminal in floating window
 Plug 'godlygeek/tabular'
-Plug 'kyazdani42/nvim-web-devicons'                     " file icons for tree
 Plug 'kyazdani42/nvim-tree.lua'                         " file tree
+Plug 'kyazdani42/nvim-web-devicons'                     " file icons for tree
 Plug 'jlanzarotta/bufexplorer'                          "
 Plug 'rhysd/vim-clang-format'
 call plug#end()
@@ -127,12 +127,12 @@ hi CursorLineNr gui=bold                                " make relative number b
 hi SpellBad guifg=NONE gui=bold,undercurl               " misspelled words
 hi LineNr term=bold cterm=NONE ctermfg=108 ctermbg=NONE
 
-"" colors for git (especially the gutter)
+" colors for git (especially the gutter)
 hi DiffAdd  guibg=#282828 guifg=#43a047
 hi DiffChange guibg=#282828 guifg=#fdd835
 hi DiffRemoved guibg=#282828 guifg=#e53935
-"
-"" coc multi cursor highlight color
+
+" coc multi cursor highlight color
 hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 
 "}}}
@@ -157,9 +157,9 @@ endif
 
 "" coc
 
-" Navigate snippet placeholders using tab
-let g:coc_snippet_next = '<Tab>'
-let g:coc_snippet_prev = '<S-Tab>'
+"  Navigate snippet placeholders using tab
+"let g:coc_snippet_next = '<Tab>'
+"let g:coc_snippet_prev = '<S-Tab>'
 
 " list of the extensions to make sure are always installed
 let g:coc_global_extensions = [
@@ -233,6 +233,7 @@ au CursorHold * silent call CocActionAsync('highlight') " highlight match on cur
 "let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
 "autocmd BufEnter * if index(spellable, &ft) < 0 | set nospell | else | set spell | endif
 
+
 " coc completion popup
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
@@ -240,7 +241,6 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 augroup folderarg
     " change working directory to passed directory
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
-
     " start fzf on passed directory
     autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
 augroup END
@@ -250,6 +250,7 @@ autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
+
 " python renaming and folding
 augroup python
     autocmd FileType python nnoremap <leader>rn :Semshi rename <CR>
@@ -308,8 +309,6 @@ let mapleader = "\<Space>"
 nnoremap ; :
 "nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 
-nmap <Tab> :bnext<CR>
-nmap <S-Tab> :bprevious<CR>
 map <S-Left>  :bprevious <Enter>
 map <S-Right> :bnext <Enter>
 
@@ -334,16 +333,17 @@ imap <F1> <plug>(fzf-maps-i)
 vmap <F1> <plug>(fzf-maps-x)
 
 "" coc
+function! s:check_back_space() abort
+     let col = col('.') - 1
+     return !col || getline('.')[col - 1]  =~ '\s'
+ endfunction
 
-" use tab to navigate snippet placeholders
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Insert <tab> when previous text is space, refresh completion if not.
+inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#next(1): <SID>check_back_space() ? "\<Tab>" : coc#refresh()
+inoremap <expr><S-tab> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <expr><cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 
-" Use enter to accept snippet expansion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+
 
 " multi cursor shortcuts
 nmap <silent> <C-a> <Plug>(coc-cursors-word)
@@ -380,15 +380,20 @@ nmap <Leader>g :FloatermNew --name=gitui gitui<CR>
 nmap <Leader>l :FloatermToggle<cr>
 nnoremap <silent> <S-l> :FloatermNew --wintype=split --height=0.35<cr>
 
-map <C-k> :NvimTreeToggle<Enter>
-map <C-l> :BufExplorer<Enter>
+map <C-k> :BufExplorer<Enter>
+map <C-l> :NvimTreeToggle<Enter>
 
 " w!! if you forget to sudo before saving
 cmap w!! w !sudo tee % >/dev/null
 
+map <S-Left>  :bprevious <Enter>
+map <S-Right> :bnext <Enter>
+
 " Hex mode
-noremap <S-h> :call HexMe()<CR>
+noremap <S-H> :call HexMe()<CR>
+map <A-c> :call CocAction('format')
 "}}}
+
 
 " ======================== Additional sourcing ====================== "{{{
 "source ~/.config/nvim/statusline.vim
